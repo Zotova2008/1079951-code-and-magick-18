@@ -38,6 +38,10 @@ var getColorOther = function () {
   return 'hsl(' + OTHER_COLOR + ', ' + Math.round(Math.random() * 100) + '%, 50%)';
 };
 
+var getMaxTime = function (times) {
+  return Math.max.apply(null, times);
+};
+
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + INDENT, CLOUD_Y + INDENT, CLOUD_SHADOW);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_BG);
@@ -45,7 +49,7 @@ window.renderStatistics = function (ctx, players, times) {
   renderText(ctx);
 
   // ищем максимальное значение times
-  var maxTime = Math.max.apply(null, times);
+  var maxTime = getMaxTime(times);
 
   // Рисуем игроков и их гексограмм
   for (var i = 0; i < players.length; i++) {
