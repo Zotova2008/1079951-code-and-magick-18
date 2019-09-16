@@ -22,18 +22,26 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + INDENT, CLOUD_Y + INDENT, CLOUD_SHADOW);
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_BG);
-
+var renderText = function (ctx) {
   ctx.font = TEXT_FONT;
   ctx.fillStyle = TEXT_COLOR;
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', CLOUD_X + INDENT * 2, CLOUD_Y + INDENT * 2);
   ctx.fillText('Список результатов:', CLOUD_X + INDENT * 2, CLOUD_Y + INDENT * 4);
+};
+
+var getMaxTime = function (times) {
+  return Math.max.apply(null, times);
+};
+
+window.renderStatistics = function (ctx, players, times) {
+  renderCloud(ctx, CLOUD_X + INDENT, CLOUD_Y + INDENT, CLOUD_SHADOW);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_BG);
+
+  renderText(ctx);
 
   // ищем максимальное значение times
-  var maxTime = Math.max.apply(null, times);
+  var maxTime = getMaxTime(times);
 
   // Рисуем игроков и их гексограмм
   for (var i = 0; i < players.length; i++) {
