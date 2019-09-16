@@ -22,16 +22,20 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var renderText = function (ctx) {
+var renderFont = function (ctx) {
   ctx.font = TEXT_FONT;
   ctx.fillStyle = TEXT_COLOR;
+};
+
+var renderText = function (ctx) {
+  renderFont(ctx);
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', CLOUD_X + INDENT * 2, CLOUD_Y + INDENT * 2);
   ctx.fillText('Список результатов:', CLOUD_X + INDENT * 2, CLOUD_Y + INDENT * 4);
 };
 
-var getMaxTime = function (times) {
-  return Math.max.apply(null, times);
+var getColorOther = function () {
+  return 'hsl(' + OTHER_COLOR + ', ' + Math.round(Math.random() * 100) + '%, 50%)';
 };
 
 window.renderStatistics = function (ctx, players, times) {
@@ -41,19 +45,18 @@ window.renderStatistics = function (ctx, players, times) {
   renderText(ctx);
 
   // ищем максимальное значение times
-  var maxTime = getMaxTime(times);
+  var maxTime = Math.max.apply(null, times);
 
   // Рисуем игроков и их гексограмм
   for (var i = 0; i < players.length; i++) {
     if (players[i] === 'Вы') {
       ctx.fillStyle = MY_COLOR;
     } else {
-      ctx.fillStyle = 'hsl(' + OTHER_COLOR + ', ' + Math.round(Math.random() * 100) + '%, 50%)';
+      ctx.fillStyle = getColorOther();
     }
     ctx.fillRect(HEX_X + ((COL_WIDTH + HEX_INDENT) * i), HEX_Y, COL_WIDTH, -(times[i] * HEX_HEIGHT / maxTime));
 
-    ctx.font = TEXT_FONT;
-    ctx.fillStyle = TEXT_COLOR;
+    renderFont(ctx);
     ctx.fillText(players[i], HEX_X + ((COL_WIDTH + HEX_INDENT) * i), HEX_Y + INDENT);
     ctx.fillText(Math.round(times[i]), HEX_X + ((COL_WIDTH + HEX_INDENT) * i), HEX_Y - INDENT * 2 - (times[i] * HEX_HEIGHT / maxTime));
   }
