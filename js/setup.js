@@ -11,7 +11,7 @@ var userOtherList = document.querySelector('.setup-similar-list');
 // Находим сам шаблон и в нем нужную разметку
 var userOtherTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 // Характеристики случайных магов
-var wizzardNumber = 4;
+var WIZZARD_NUMBERS = 4;
 var WIZZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZZARD_COAT = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -24,8 +24,8 @@ var getRandomIndex = function (array) {
 };
 
 // Отрисовка случайного мага
-var getSittingWizzard = function (amt) {
-  for (var i = 0; i < amt; i++) {
+var getSittingWizzard = function () {
+  for (var i = 0; i < WIZZARD_NUMBERS; i++) {
     randomWizzard.push({
       name: getRandomIndex(WIZZARD_NAMES) + ' ' + getRandomIndex(WIZZARD_SURNAMES),
       coatColor: getRandomIndex(WIZZARD_COAT),
@@ -35,7 +35,7 @@ var getSittingWizzard = function (amt) {
   return randomWizzard;
 };
 
-var wizards = getSittingWizzard(wizzardNumber);
+var wizards = getSittingWizzard(WIZZARD_NUMBERS);
 
 // Отрисовка мага случайными данными
 var renderWizard = function (wizard) {
