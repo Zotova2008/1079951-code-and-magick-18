@@ -35,7 +35,7 @@ var getSittingWizzard = function () {
   return randomWizzard;
 };
 
-var wizards = getSittingWizzard(WIZZARD_NUMBERS);
+var wizards = getSittingWizzard();
 
 // Отрисовка мага случайными данными
 var renderWizard = function (wizard) {
@@ -55,3 +55,80 @@ for (var i = 0; i < wizards.length; i++) {
 }
 
 userOtherList.appendChild(fragment);
+
+// Открытие и закрытие блока настроек
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+// Нажатие на элемент .setup-open удаляет класс hidden
+// у блока setup. Нажатие на элемент .setup-close, расположенный
+// внутри блока setup возвращает ему класс hidden.
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+// Цвет мантии.setup - wizard.wizard - coat должен обновляться по нажатию на неё.Цвет мантии задаётся через изменение инлайнового CSS - свойства fill для элемента.Цвет должен сменяться произвольным образом на один из следующих цветов:
+// 1. находим в разметке блок цвета мантии, цвет глаз, цвет фаербола
+var wizardSetting = document.querySelector('.setup-player');
+var wizardCoat = wizardSetting.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = wizardSetting.querySelector('.setup-wizard .wizard-eyes');
+var wizardFire = wizardSetting.querySelector('.setup-fireball-wrap');
+
+var wizardCoatArray = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var wizardEyesArray = ['black', 'red', 'blue', 'yellow', 'green'];
+var wizardFireArray = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
+wizardCoat.addEventListener('click', function () {
+  var render = getRandomIndex(wizardCoatArray);
+  var wizardCoatInput = wizardSetting.querySelector('input[name="coat-color"]');
+  wizardCoat.style.fill = render;
+  wizardCoatInput.value = render;
+});
+wizardEyes.addEventListener('click', function () {
+  var render = getRandomIndex(wizardEyesArray);
+  var wizardEyesInput = wizardSetting.querySelector('input[name="eyes-color"]');
+  wizardEyes.style.fill = render;
+  wizardEyesInput.value = render;
+});
+wizardFire.addEventListener('click', function () {
+  var render = getRandomIndex(wizardFireArray);
+  var wizardFireInput = wizardFire.querySelector('input[name="fireball-color"]');
+  wizardFire.style.background = render;
+  wizardFireInput.value = render;
+});
