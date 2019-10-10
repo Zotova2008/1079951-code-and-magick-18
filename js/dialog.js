@@ -2,6 +2,8 @@
 
 (function () {
   var setup = document.querySelector('.setup');
+  var setupTop = setup.style.top;
+  var setupLeft = setup.style.left;
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
 
@@ -26,6 +28,8 @@
   });
 
   var openPopup = function () {
+    setup.style.top = setupTop;
+    setup.style.left = setupLeft;
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };

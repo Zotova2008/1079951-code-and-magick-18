@@ -1,11 +1,5 @@
 'use strict';
 (function () {
-  // var userSetting = document.querySelector('.setup');
-  // var userOther = document.querySelector('.setup-similar');
-
-  // userSetting.classList.remove('hidden');
-  // userOther.classList.remove('hidden');
-
   var userOtherList = document.querySelector('.setup-similar-list');
   var userOtherTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var WIZZARD_NUMBERS = 4;
