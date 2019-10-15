@@ -173,41 +173,33 @@
   </template>
 
   <script>
-    // Размер фаербола
     var fireballSize = 22;
-    // Скорость фаербола
     var getFireballSpeed = function (left) {
-      if (left) {
-        return 5;
-      } else {
-        return 2;
-      }
+      return left ? 5 : 2;
     };
-    //Скорость мага
     var wizardSpeed = 3;
-    //Ширина мага
     var wizardWidth = 70;
-    //Пропорции мага
     var getWizardHeight = function () {
       return wizardWidth * 1.337;
     };
-    //Положение мага по горизонтале
     var getWizardX = function (width) {
       return (width / 2) - (wizardWidth / 2);
     };
-    //Положение мага по вертикале
     var getWizardY = function (height) {
       return height - (height * 2 / 3) - getWizardHeight();
     };
 
   </script>
 
+  <script src="js/debouce.js"></script>
   <script src="js/util.js"></script>
   <script src="js/backend.js"></script>
-  <script src="js/dialog.js"></script>
   <script src="js/stat.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/wizard.js"></script>
+  <script src="js/dialog.js"></script>
   <script src="js/setup.js"></script>
+  <script src="js/game.js"></script>
 
 </body>
 
